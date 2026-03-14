@@ -25,6 +25,27 @@ body {
     justify-content: center;
     align-items: center;
     perspective: 1000px;
+    position: relative;
+}
+
+/* 3D Nebula/Planet Overlay */
+.nebula-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    opacity: 0.22;
+    filter: blur(2px) saturate(1.2) brightness(1.1);
+    animation: nebulaMove 60s linear infinite alternate;
+}
+
+@keyframes nebulaMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
 }
 
 /* Starfield Backgrounds */
@@ -68,27 +89,46 @@ body {
     padding: 2rem;
     position: relative;
     z-index: 10;
+    background: rgba(20, 20, 40, 0.45);
+    border-radius: 32px;
+    box-shadow: 0 8px 40px 0 rgba(0,0,0,0.45), 0 1.5px 0 0 rgba(0,243,255,0.08);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border: 1.5px solid rgba(0,243,255,0.13);
+    overflow: hidden;
 }
 
 .game-header {
     text-align: center;
     margin-bottom: 1rem;
+    background: rgba(0,0,0,0.18);
+    border-radius: 18px;
+    box-shadow: 0 2px 18px 0 rgba(0,243,255,0.08);
+    padding: 1.2rem 0.5rem 0.7rem 0.5rem;
+    border: 1px solid rgba(0,243,255,0.08);
 }
 
 h1 {
     font-family: var(--font-heading);
-    font-size: 3rem;
-    letter-spacing: 5px;
+    font-size: 3.2rem;
+    letter-spacing: 6px;
     color: #fff;
-    text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+    text-shadow: 0 0 18px var(--neon-blue), 0 0 32px var(--neon-blue), 0 0 2px #fff;
     margin-bottom: 0.5rem;
+    font-weight: 900;
+    filter: drop-shadow(0 0 8px #00f3ff88);
 }
 
 .glow-text {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--neon-pink);
-    text-shadow: 0 0 8px var(--neon-pink);
+    text-shadow: 0 0 8px var(--neon-pink), 0 0 2px #fff;
+    letter-spacing: 1.5px;
+    padding: 0.2rem 0.7rem;
+    border-radius: 12px;
+    background: rgba(255,0,200,0.07);
+    border: 1px solid rgba(255,0,200,0.08);
+    display: inline-block;
 }
 
 /* Floating Animations */
@@ -160,12 +200,13 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    background: rgba(10, 5, 30, 0.8);
-    padding: 2rem;
+    background: rgba(10, 5, 30, 0.7);
+    padding: 2rem 2.5rem;
     border-radius: 30px;
-    border: 2px solid rgba(0, 243, 255, 0.5);
-    box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
-    backdrop-filter: blur(5px);
+    border: 2px solid rgba(0, 243, 255, 0.18);
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.13);
+    backdrop-filter: blur(7px) saturate(1.2);
+    margin-top: 1.5rem;
 }
 
 .input-container {
@@ -177,8 +218,8 @@ h1 {
 #letter-input {
     width: 80px;
     height: 80px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 2px solid var(--neon-blue);
+    background: rgba(0, 0, 0, 0.55);
+    border: 2.5px solid var(--neon-blue);
     border-radius: 50%;
     color: #fff;
     font-family: var(--font-heading);
@@ -186,30 +227,33 @@ h1 {
     text-align: center;
     text-transform: uppercase;
     outline: none;
-    box-shadow: 0 0 20px rgba(0, 243, 255, 0.4) inset;
+    box-shadow: 0 0 24px rgba(0, 243, 255, 0.5) inset, 0 0 8px #00f3ff44;
     transition: all 0.3s;
+    filter: drop-shadow(0 0 8px #00f3ff88);
 }
 
 #letter-input:focus {
-    box-shadow: 0 0 30px rgba(0, 243, 255, 0.8) inset, 0 0 20px var(--neon-blue);
-    transform: scale(1.05);
+    box-shadow: 0 0 36px rgba(0, 243, 255, 0.9) inset, 0 0 24px var(--neon-blue);
+    transform: scale(1.07);
 }
 
+
 .glow-btn {
-    background: transparent;
+    background: linear-gradient(90deg, rgba(0,243,255,0.13) 0%, rgba(255,0,200,0.09) 100%);
     color: var(--neon-blue);
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    padding: 15px 30px;
-    border: 2px solid var(--neon-blue);
+    padding: 15px 36px;
+    border: 2.5px solid var(--neon-blue);
     border-radius: 30px;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 2px;
     position: relative;
     overflow: hidden;
-    transition: all 0.3s;
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+    transition: all 0.3s cubic-bezier(.4,2,.3,1);
+    box-shadow: 0 0 18px rgba(0, 243, 255, 0.23), 0 1.5px 0 0 rgba(0,243,255,0.08);
+    filter: drop-shadow(0 0 8px #00f3ff88);
 }
 
 .glow-btn::before {
@@ -224,9 +268,11 @@ h1 {
     transition: transform 0.5s ease;
 }
 
+
 .glow-btn:hover {
-    background: rgba(0, 243, 255, 0.1);
-    box-shadow: 0 0 25px rgba(0, 243, 255, 0.6);
+    background: linear-gradient(90deg, rgba(0,243,255,0.22) 0%, rgba(255,0,200,0.18) 100%);
+    box-shadow: 0 0 32px rgba(0, 243, 255, 0.38), 0 2.5px 0 0 rgba(0,243,255,0.13);
+    transform: scale(1.04) translateY(-2px);
 }
 
 .glow-btn:active::before {
@@ -234,15 +280,19 @@ h1 {
     transition: transform 0s;
 }
 
+
 .glow-btn.secondary {
     color: var(--neon-pink);
     border-color: var(--neon-pink);
-    box-shadow: 0 0 15px rgba(255, 0, 200, 0.3);
+    box-shadow: 0 0 18px rgba(255, 0, 200, 0.23), 0 1.5px 0 0 rgba(255,0,200,0.08);
+    background: linear-gradient(90deg, rgba(255,0,200,0.13) 0%, rgba(0,243,255,0.09) 100%);
 }
 
+
 .glow-btn.secondary:hover {
-    background: rgba(255, 0, 200, 0.1);
-    box-shadow: 0 0 25px rgba(255, 0, 200, 0.6);
+    background: linear-gradient(90deg, rgba(255,0,200,0.22) 0%, rgba(0,243,255,0.18) 100%);
+    box-shadow: 0 0 32px rgba(255, 0, 200, 0.38), 0 2.5px 0 0 rgba(255,0,200,0.13);
+    transform: scale(1.04) translateY(-2px);
 }
 
 .glow-btn.secondary::before {
@@ -292,23 +342,25 @@ h1 {
 }
 
 /* Status Modal */
+
 .status-message {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(5, 0, 20, 0.95);
-    padding: 3rem;
-    border-radius: 20px;
-    border: 2px solid var(--neon-pink);
-    box-shadow: 0 0 50px rgba(255, 0, 200, 0.4);
+    background: rgba(5, 0, 20, 0.93);
+    padding: 3rem 2.5rem;
+    border-radius: 28px;
+    border: 2.5px solid var(--neon-pink);
+    box-shadow: 0 0 60px 0 rgba(255, 0, 200, 0.33), 0 2.5px 0 0 rgba(255,0,200,0.13);
     text-align: center;
     z-index: 50;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(14px) saturate(1.2);
     display: flex;
     flex-direction: column;
     gap: 20px;
     animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 12px #ff00c888);
 }
 
 .status-message h2 {
